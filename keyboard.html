@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="jp" dir="ltr">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<form name="vapc0000_2">
+		<input type="url" id="xshr_lotno">
+		<br>
+		<input id="dmy_input" style="width:0px; height:0px; opacity:0;" readonly>
+		<script>
+			<!--
+				var p_lot_elm = document.forms.vapc0000_2.xshr_lotno;
+				var p_dmy_elm = document.getElementById('dmy_input');
+
+				p_lot_elm.value = "";
+				p_dmy_elm.value = "";
+
+				// Enter入力時の処理(Lot Noチェック)
+				p_lot_elm.addEventListener('keydown', function(x_event) {
+					console.log("keydown");
+					if (x_event.code == 'Enter') {
+						console.log("Enter");
+						afterInputLotNo(p_lot_elm.value);
+					}
+				});
+				// フォーカスが外れた時の処理(フォーカスを当て直す)
+				p_lot_elm.addEventListener('blur', function() {
+					console.log("blur");
+					p_lot_elm.focus();
+					p_lot_elm.setAttribute('readonly', '');
+					console.log("set readonly");
+					setTimeout(function() {
+						console.log("reset readonly");
+						p_lot_elm.removeAttribute('readonly');
+					}, 50);
+
+					function stopAction(e) {
+						console.log("stopAction");
+						e.preventDefault();
+					}
+
+					p_lot_elm.addEventListener("touchstart", function (e) {
+						console.log("touchstart");
+						stopAction(e);
+					});
+				});
+
+				// フォーカスが当たった時の処理(ダミーにフォーカスを移す)
+				p_lot_elm.addEventListener('focus', function() {
+					console.log("focus");
+					if (p_lot_elm.__fcssts__ == null) {
+						console.log("focus null");
+						p_lot_elm.__fcssts__ = true;
+						p_dmy_elm.focus();
+					}  else {
+						console.log("focus not null");
+						p_lot_elm.__fcssts__ = null;
+					}
+				});
+
+				function afterInputLotNo(x_barcode) {
+					// 空の場合処理しない
+					if (x_barcode == null || x_barcode == '') {
+						console.log("x_barcode null");
+						return;
+					}
+
+					// 空白や改行を削除
+					var p_lotno = x_barcode;
+					if (p_lotno != null) {
+						console.log("p_lotno not null");
+						p_lotno = p_lotno.trim();
+					}
+				};
+			-->
+		</script>
+	</form>
+</body>
+</html>
