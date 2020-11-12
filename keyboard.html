@@ -23,47 +23,47 @@
 				var p_dmy_elm = document.getElementById('dmy_input');
 
 				var p_cnt = 0;
-				var p_mm_elm = [];
+				var p_inspec_elm = [];
 				p_dmy_elm.value = "";
 
 				var p_document = document.forms.vapc0000
 
+				// name属性が付与されたものだけ取得して格納
 				for (var i = 0; i < p_document.children.length; i++) {
-					// console.log(document.forms.vapc0000.children[i].name);
 					if (p_document.children[i].name) {
-						// Enter入力時の処理(Lot Noチェック)
-						p_mm_elm.push(p_document.children[i]);
+						p_inspec_elm.push(p_document.children[i]);
 					}
 				}
-				console.log(p_mm_elm);
+				console.log(p_inspec_elm);
 
 				// キーボード禁止処理
 				function procFocus() {
-					p_mm_elm[p_cnt].addEventListener('keydown', function(x_event) {
+					p_inspec_elm[p_cnt].addEventListener('keydown', function(x_event) {
 						console.log("keydown");
 						if (x_event.code == 'Enter') {
 							console.log("Enter");
-							console.log(p_mm_elm[p_cnt].value);
-							afterInputLotNo(p_mm_elm[p_cnt].value);
+							console.log(p_inspec_elm[p_cnt].value);
+							afterInputInspec(p_inspec_elm[p_cnt].value);
 						}
 					});
-					// フォーカスが外れた時の処理(フォーカスを当て直す)
-					p_mm_elm[p_cnt].addEventListener('blur', function() {
-						if (p_cnt != p_mm_elm.length) {
 
+					// フォーカスが外れた時の処理(フォーカスを当て直す)
+					p_inspec_elm[p_cnt].addEventListener('blur', function() {
+						// 全ての検査が終了したら処理しない
+						if (p_cnt != p_inspec_elm.length) {
 							console.log("blur");
-							p_mm_elm[p_cnt].focus();
-							p_mm_elm[p_cnt].setAttribute('readonly', '');
+							p_inspec_elm[p_cnt].focus();
+							p_inspec_elm[p_cnt].setAttribute('readonly', '');
 							console.log("set readonly");
 							setTimeout(function() {
 								console.log("reset readonly");
-								p_mm_elm[p_cnt].removeAttribute('readonly');
+								p_inspec_elm[p_cnt].removeAttribute('readonly');
 							}, 50);
 							function stopAction(e) {
 								console.log("stopAction");
 								e.preventDefault();
 							}
-							p_mm_elm[p_cnt].addEventListener("touchstart", function (e) {
+							p_inspec_elm[p_cnt].addEventListener("touchstart", function (e) {
 								console.log("touchstart");
 								stopAction(e);
 							});
@@ -71,34 +71,36 @@
 					});
 
 					// フォーカスが当たった時の処理(ダミーにフォーカスを移す)
-					p_mm_elm[p_cnt].addEventListener('focus', function() {
+					p_inspec_elm[p_cnt].addEventListener('focus', function() {
 						console.log("focus");
-						if (p_mm_elm[p_cnt].__fcssts__ == null) {
+						if (p_inspec_elm[p_cnt].__fcssts__ == null) {
 							console.log("focus null");
-							p_mm_elm[p_cnt].__fcssts__ = true;
+							p_inspec_elm[p_cnt].__fcssts__ = true;
 							p_dmy_elm.focus();
-						}  else {
+						} else {
 							console.log("focus not null");
-							p_mm_elm[p_cnt].__fcssts__ = null;
+							p_inspec_elm[p_cnt].__fcssts__ = null;
 						}
 					});
 
-					function afterInputLotNo(x_microMeter) {
+					function afterInputInspec(x_inspec) {
 						// 空の場合処理しない
-						if (x_microMeter == null || x_microMeter == '') {
-							console.log("x_microMeter null");
+						if (x_inspec == null || x_inspec == '') {
+							console.log("x_inspec null");
 							return;
 						}
 
 						// 空白や改行を削除
-						if (x_microMeter != null) {
-							console.log("x_microMeter not null");
-							x_microMeter = x_microMeter.trim();
-							p_mm_elm[p_cnt].setAttribute('readonly', '');
-							p_mm_elm[p_cnt].style.backgroundColor = "#000000";
+						if (x_inspec != null) {
+							console.log("x_inspec not null");
+							p_inspec_elm[p_cnt].value = x_inspec.trim();
+							// 検査が完了した項目を読み取り専用にして背景を変更
+							p_inspec_elm[p_cnt].setAttribute('readonly', '');
+							p_inspec_elm[p_cnt].style.backgroundColor = "#cccccc";
 							p_cnt++;
-							if (p_cnt != p_mm_elm.length) {
-								p_mm_elm[p_cnt].focus();
+							// 次の検査項目へフォーカス
+							if (p_cnt != p_inspec_elm.length) {
+								p_inspec_elm[p_cnt].focus();
 								procFocus();
 							}
 						}
