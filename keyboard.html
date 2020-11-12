@@ -1,79 +1,110 @@
 <!DOCTYPE html>
-<html lang="jp" dir="ltr">
+<html lang="en" dir="ltr">
 <head>
 	<meta charset="utf-8">
 	<title></title>
 </head>
 <body>
-	<form name="vapc0000_2">
-		<input type="url" id="xshr_lotno">
+	<form name="vapc0000">
+		<input type="url" name="micro_meter_1" readonly="">
 		<br>
-		<input id="dmy_input" style="width:0px; height:0px; opacity:0;" readonly>
+		<input type="url" name="micro_meter_2" readonly="">
+		<br>
+		<input type="url" name="micro_meter_3" readonly="">
+		<br>
+		<input type="url" name="micro_meter_4" readonly="">
+		<br>
+		<input type="url" name="micro_meter_5" readonly="">
+		<br>
+		<input id="dmy_input" style="width:0px; height:0px; opacity:0;" readonly="">
 		<script>
 			<!--
-				var p_lot_elm = document.forms.vapc0000_2.xshr_lotno;
+				console.log('proc start');
 				var p_dmy_elm = document.getElementById('dmy_input');
 
-				p_lot_elm.value = "";
+				var p_cnt = 0;
+				var p_mm_elm = [];
 				p_dmy_elm.value = "";
 
-				// Enter入力時の処理(Lot Noチェック)
-				p_lot_elm.addEventListener('keydown', function(x_event) {
-					console.log("keydown");
-					if (x_event.code == 'Enter') {
-						console.log("Enter");
-						afterInputLotNo(p_lot_elm.value);
-					}
-				});
-				// フォーカスが外れた時の処理(フォーカスを当て直す)
-				p_lot_elm.addEventListener('blur', function() {
-					console.log("blur");
-					p_lot_elm.focus();
-					p_lot_elm.setAttribute('readonly', '');
-					console.log("set readonly");
-					setTimeout(function() {
-						console.log("reset readonly");
-						p_lot_elm.removeAttribute('readonly');
-					}, 50);
+				var p_document = document.forms.vapc0000
 
-					function stopAction(e) {
-						console.log("stopAction");
-						e.preventDefault();
+				for (var i = 0; i < p_document.children.length; i++) {
+					// console.log(document.forms.vapc0000.children[i].name);
+					if (p_document.children[i].name) {
+						// Enter入力時の処理(Lot Noチェック)
+						p_mm_elm.push(p_document.children[i]);
 					}
+				}
+				console.log(p_mm_elm);
 
-					p_lot_elm.addEventListener("touchstart", function (e) {
-						console.log("touchstart");
-						stopAction(e);
+				// キーボード禁止処理
+				function procFocus() {
+					p_mm_elm[p_cnt].addEventListener('keydown', function(x_event) {
+						console.log("keydown");
+						if (x_event.code == 'Enter') {
+							console.log("Enter");
+							console.log(p_mm_elm[p_cnt].value);
+							afterInputLotNo(p_mm_elm[p_cnt].value);
+						}
 					});
-				});
+					// フォーカスが外れた時の処理(フォーカスを当て直す)
+					p_mm_elm[p_cnt].addEventListener('blur', function() {
+						if (p_cnt != p_mm_elm.length) {
 
-				// フォーカスが当たった時の処理(ダミーにフォーカスを移す)
-				p_lot_elm.addEventListener('focus', function() {
-					console.log("focus");
-					if (p_lot_elm.__fcssts__ == null) {
-						console.log("focus null");
-						p_lot_elm.__fcssts__ = true;
-						p_dmy_elm.focus();
-					}  else {
-						console.log("focus not null");
-						p_lot_elm.__fcssts__ = null;
-					}
-				});
+							console.log("blur");
+							p_mm_elm[p_cnt].focus();
+							p_mm_elm[p_cnt].setAttribute('readonly', '');
+							console.log("set readonly");
+							setTimeout(function() {
+								console.log("reset readonly");
+								p_mm_elm[p_cnt].removeAttribute('readonly');
+							}, 50);
+							function stopAction(e) {
+								console.log("stopAction");
+								e.preventDefault();
+							}
+							p_mm_elm[p_cnt].addEventListener("touchstart", function (e) {
+								console.log("touchstart");
+								stopAction(e);
+							});
+						}
+					});
 
-				function afterInputLotNo(x_barcode) {
-					// 空の場合処理しない
-					if (x_barcode == null || x_barcode == '') {
-						console.log("x_barcode null");
-						return;
-					}
+					// フォーカスが当たった時の処理(ダミーにフォーカスを移す)
+					p_mm_elm[p_cnt].addEventListener('focus', function() {
+						console.log("focus");
+						if (p_mm_elm[p_cnt].__fcssts__ == null) {
+							console.log("focus null");
+							p_mm_elm[p_cnt].__fcssts__ = true;
+							p_dmy_elm.focus();
+						}  else {
+							console.log("focus not null");
+							p_mm_elm[p_cnt].__fcssts__ = null;
+						}
+					});
 
-					// 空白や改行を削除
-					var p_lotno = x_barcode;
-					if (p_lotno != null) {
-						console.log("p_lotno not null");
-						p_lotno = p_lotno.trim();
-					}
-				};
+					function afterInputLotNo(x_microMeter) {
+						// 空の場合処理しない
+						if (x_microMeter == null || x_microMeter == '') {
+							console.log("x_microMeter null");
+							return;
+						}
+
+						// 空白や改行を削除
+						if (x_microMeter != null) {
+							console.log("x_microMeter not null");
+							x_microMeter = x_microMeter.trim();
+							p_mm_elm[p_cnt].setAttribute('readonly', '');
+							p_mm_elm[p_cnt].style.backgroundColor = "#000000";
+							p_cnt++;
+							if (p_cnt != p_mm_elm.length) {
+								p_mm_elm[p_cnt].focus();
+								procFocus();
+							}
+						}
+					};
+				}
+				procFocus();
 			-->
 		</script>
 	</form>
