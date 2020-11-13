@@ -51,12 +51,14 @@
 						// 全ての検査が終了したら処理しない
 						if (p_cnt != p_inspec_elm.length) {
 							console.log("blur");
-							p_inspec_elm[p_cnt].focus();
-							p_inspec_elm[p_cnt].setAttribute('readonly', '');
-							console.log("set readonly");
 							setTimeout(function() {
-								console.log("reset readonly");
-								p_inspec_elm[p_cnt].removeAttribute('readonly');
+								p_inspec_elm[p_cnt].focus();
+								p_inspec_elm[p_cnt].setAttribute('readonly', '');
+								console.log("set readonly");
+								setTimeout(function() {
+									console.log("reset readonly");
+									p_inspec_elm[p_cnt].removeAttribute('readonly');
+								}, 50);
 							}, 50);
 							function stopAction(e) {
 								console.log("stopAction");
