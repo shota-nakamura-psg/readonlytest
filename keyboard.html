@@ -31,8 +31,10 @@
 				for (var i = 0; i < p_document.children.length; i++) {
 					if (p_document.children[i].name) {
 						p_inspec_elm.push(p_document.children[i]);
-						p_inspec_elm[i].value = "";
 					}
+				}
+				for (var j = 0; j < p_inspec_elm.length; j++) {
+					p_inspec_elm[j].value = "";
 				}
 				console.log(p_inspec_elm);
 
