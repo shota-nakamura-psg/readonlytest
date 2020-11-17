@@ -24,7 +24,7 @@
 		<input id="dmy_input" style="width:0px; height:0px; opacity:0;" readonly="">
 		<script>
 		<!--
-		console.log('proc sta');
+		console.log('proc start');
 		var p_micro_meter = [];
 		p_micro_meter.push('micro_meter_1');
 		p_micro_meter.push('micro_meter_2');
@@ -89,8 +89,7 @@
 							}
 							p_inspec_elm[p_cnt].addEventListener('touchstart', function (e) {
 								console.log('inspec touchstart');
-								// stopAction(e);
-								procFocus();
+								stopAction(e);
 							});
 						}
 					});
