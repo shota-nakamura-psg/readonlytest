@@ -24,7 +24,7 @@
 		<input id="dmy_input" style="width:0px; height:0px; opacity:0;" readonly="">
 		<script>
 			<!--
-				console.log('proc start');
+				console.log('proc sta');
 				var p_micro_meter = [];
 				p_micro_meter.push('micro_meter_1');
 				p_micro_meter.push('micro_meter_2');
@@ -85,6 +85,7 @@
 							}
 						});
 						console.log('set readonly');
+						console.log('--------------------------------*');
 						p_inspec_elm[p_cnt].setAttribute('readonly', '');
 					});
 
@@ -120,11 +121,13 @@
 							// 次の検査項目へフォーカス
 							if (p_cnt != p_inspec_elm.length) {
 								p_dmy_elm.focus();
+								console.log('start procFocus2');
 								procFocus();
 							}
 						}
 					};
 				}
+				console.log('start procFocus1');
 				procFocus();
 			-->
 		</script>
