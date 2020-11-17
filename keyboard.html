@@ -6,6 +6,11 @@
 </head>
 <body>
 	<form name="vapc0000">
+		<input type="url" name="other_1">
+		<br>
+		<input type="url" name="other_2">
+		<br>
+		<br>
 		<input type="url" name="micro_meter_1" readonly="">
 		<br>
 		<input type="url" name="micro_meter_2" readonly="">
@@ -20,69 +25,63 @@
 		<script>
 			<!--
 				console.log('proc start');
-				var p_dmy_elm = document.getElementById('dmy_input');
-
-				var p_cnt = 0;
-				var p_inspec_elm = [];
-
 				var p_document = document.forms.vapc0000;
+				var p_inspec_elm = [];
+				var p_other_elm = [];
+				var p_dmy_elm = document.getElementById('dmy_input');
+				var p_cnt = 0;
 
 				// name属性が付与されたものだけ取得して格納
-				for (var i = 0; i < p_document.children.length; i++) {
-					if (p_document.children[i].name) {
-						p_inspec_elm.push(p_document.children[i]);
+				for (var i = 0; i < p_document.length; i++) {
+					if (p_document[i].type == 'text') {
+						p_document[i].value = "";
+						for (var j = 0; j < p_micro_meter.length; j++) {
+							if (p_document[i].name === p_micro_meter[j]) {
+								p_inspec_elm.push(p_document[i]);
+							}
+						}
 					}
 				}
-				for (var j = 0; j < p_inspec_elm.length; j++) {
-					p_inspec_elm[j].value = "";
-				}
-				console.log(p_inspec_elm);
 
 				// キーボード禁止処理
 				function procFocus() {
 					p_inspec_elm[p_cnt].addEventListener('keydown', function(x_event) {
-						console.log("keydown");
 						if (x_event.code == 'Enter') {
-							console.log("Enter");
-							console.log(p_inspec_elm[p_cnt].value);
 							afterInputInspec(p_inspec_elm[p_cnt].value);
 						}
 					});
 
 					// フォーカスが外れた時の処理(フォーカスを当て直す)
 					p_inspec_elm[p_cnt].addEventListener('blur', function() {
-						// 全ての検査が終了したら処理しない
-						if (p_cnt != p_inspec_elm.length) {
-							console.log("blur");
-							setTimeout(function() {
-								p_inspec_elm[p_cnt].focus();
-								p_inspec_elm[p_cnt].setAttribute('readonly', '');
-								console.log("set readonly");
+						p_dmy_elm.addEventListener('focus', function() {
+							// 全ての検査が終了したら処理しない
+							if (p_cnt != p_inspec_elm.length) {
 								setTimeout(function() {
-									console.log("reset readonly");
-									p_inspec_elm[p_cnt].removeAttribute('readonly');
+									p_inspec_elm[p_cnt].focus();
+									p_inspec_elm[p_cnt].setAttribute('readonly', '');
+									setTimeout(function() {
+										p_inspec_elm[p_cnt].removeAttribute('readonly');
+									}, 50);
 								}, 50);
-							}, 50);
-							function stopAction(e) {
-								console.log("stopAction");
-								e.preventDefault();
+								function stopAction(e) {
+									e.preventDefault();
+								}
+								p_inspec_elm[p_cnt].addEventListener('touchstart', function (e) {
+									stopAction(e);
+								});
 							}
-							p_inspec_elm[p_cnt].addEventListener("touchstart", function (e) {
-								console.log("touchstart");
-								stopAction(e);
-							});
-						}
+						});
+						p_inspec_elm[p_cnt].setAttribute('readonly', '');
 					});
 
 					// フォーカスが当たった時の処理(ダミーにフォーカスを移す)
 					p_inspec_elm[p_cnt].addEventListener('focus', function() {
-						console.log("focus");
 						if (p_inspec_elm[p_cnt].__fcssts__ == null) {
-							console.log("focus null");
 							p_inspec_elm[p_cnt].__fcssts__ = true;
-							p_dmy_elm.focus();
+							setTimeout(function() {
+								p_dmy_elm.focus();
+							}, 50);
 						} else {
-							console.log("focus not null");
 							p_inspec_elm[p_cnt].__fcssts__ = null;
 						}
 					});
@@ -90,27 +89,26 @@
 					function afterInputInspec(x_inspec) {
 						// 空の場合処理しない
 						if (x_inspec == null || x_inspec == '') {
-							console.log("x_inspec null");
 							return;
 						}
 
 						// 空白や改行を削除
 						if (x_inspec != null) {
-							console.log("x_inspec not null");
 							p_inspec_elm[p_cnt].value = x_inspec.trim();
 							// 検査が完了した項目を読み取り専用にして背景を変更
 							p_inspec_elm[p_cnt].setAttribute('readonly', '');
-							p_inspec_elm[p_cnt].style.backgroundColor = "#cccccc";
+							p_inspec_elm[p_cnt].style.backgroundColor = '#cccccc';
 							p_cnt++;
 							// 次の検査項目へフォーカス
 							if (p_cnt != p_inspec_elm.length) {
-								p_inspec_elm[p_cnt].focus();
+								p_dmy_elm.focus();
 								procFocus();
 							}
 						}
 					};
 				}
 				procFocus();
+
 			-->
 		</script>
 	</form>
