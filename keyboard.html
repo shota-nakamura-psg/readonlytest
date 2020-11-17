@@ -6,25 +6,31 @@
 </head>
 <body>
 	<form name="vapc0000">
-		<input type="url" name="other_1">
+		<input type="text" name="other_1">
 		<br>
-		<input type="url" name="other_2">
+		<input type="text" name="other_2">
 		<br>
 		<br>
-		<input type="url" name="micro_meter_1" readonly="">
+		<input type="text" name="micro_meter_1" readonly="">
 		<br>
-		<input type="url" name="micro_meter_2" readonly="">
+		<input type="text" name="micro_meter_2" readonly="">
 		<br>
-		<input type="url" name="micro_meter_3" readonly="">
+		<input type="text" name="micro_meter_3" readonly="">
 		<br>
-		<input type="url" name="micro_meter_4" readonly="">
+		<input type="text" name="micro_meter_4" readonly="">
 		<br>
-		<input type="url" name="micro_meter_5" readonly="">
+		<input type="text" name="micro_meter_5" readonly="">
 		<br>
 		<input id="dmy_input" style="width:0px; height:0px; opacity:0;" readonly="">
 		<script>
 			<!--
 				console.log('proc start');
+				var p_micro_meter = [];
+				p_micro_meter.push('micro_meter_1');
+				p_micro_meter.push('micro_meter_2');
+				p_micro_meter.push('micro_meter_3');
+				p_micro_meter.push('micro_meter_4');
+				p_micro_meter.push('micro_meter_5');
 				var p_document = document.forms.vapc0000;
 				var p_inspec_elm = [];
 				var p_other_elm = [];
@@ -41,6 +47,10 @@
 							}
 						}
 					}
+				}
+
+				for (var i = 0; i < p_inspec_elm.length; i++) {
+					console.log(p_inspec_elm[i]);
 				}
 
 				// キーボード禁止処理
