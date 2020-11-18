@@ -36,6 +36,7 @@
 		var p_other_elm = [];
 		var p_dmy_elm = document.getElementById('dmy_input');
 		var p_cnt = 0;
+		var log_cnt = 0;
 
 		// name属性が付与されたものだけ取得して格納
 		for (var i = 0; i < p_document.length; i++) {
@@ -49,43 +50,44 @@
 			}
 		}
 
+		console.log('start procFocus1');
 		// キーボード禁止処理
 		function procFocus() {
 			p_inspec_elm[p_cnt].addEventListener('keydown', function(x_event) {
-				console.log('keydown');
+				console.log(' keydown');
 				if (x_event.code == 'Enter') {
-					console.log('Enter');
+					console.log(' Enter');
 					afterInputInspec(p_inspec_elm[p_cnt].value);
 				}
 			});
 
 			// フォーカスが外れた時の処理(フォーカスを当て直す)
 			p_inspec_elm[p_cnt].addEventListener('blur', function() {
-				console.log('elm Listener blur');
+				console.log('4 elm Listener blur');
 				if (p_inspec_elm[p_cnt].__fcssts__  == null) {
-					console.log('set readonly');
+					console.log('9 set readonly');
 					p_inspec_elm[p_cnt].setAttribute('readonly', '');
-					console.log('--------------------------------*');
+					console.log(' --------------------------------*');
 				} else {
 					p_dmy_elm.addEventListener('focus', function() {
-						console.log('dmy Listener focus');
+						console.log('5 dmy Listener focus');
 						// 全ての検査が終了したら処理しない
 						if (p_cnt != p_inspec_elm.length) {
-							setTimeout(function() {
-								console.log('elm focus');
+							// setTimeout = setTimeout(function() {
+								console.log('6 elm focus');
 								p_inspec_elm[p_cnt].focus();
 								p_inspec_elm[p_cnt].setAttribute('readonly', '');
-								setTimeout(function() {
-									console.log('rem readonly');
-									console.log();
+								var rem_readonly = setTimeout(function() {
+									console.log('8 rem readonly');
 									p_inspec_elm[p_cnt].removeAttribute('readonly');
+									clearTimeout(rem_readonly);
 								}, 50);
-							}, 50);
+							// }, 50);
 							// function stopAction(e) {
 							// 	e.preventDefault();
 							// }
 							p_inspec_elm[p_cnt].addEventListener('touchstart', function (e) {
-								console.log('inspec touchstart');
+								console.log(' inspec touchstart');
 								// p_dmy_elm.focus();
 								// stopAction(e);
 							});
@@ -97,16 +99,17 @@
 
 			// フォーカスが当たった時の処理(ダミーにフォーカスを移す)
 			p_inspec_elm[p_cnt].addEventListener('focus', function() {
-				console.log('inspec focus');
+				console.log('1 inspec focus');
 				if (p_inspec_elm[p_cnt].__fcssts__ == null) {
-					console.log('fcssts null');
+					console.log('2 fcssts null');
 					p_inspec_elm[p_cnt].__fcssts__ = true;
-					setTimeout(function() {
-						console.log('dmy focus');
+					var dmy_focus = setTimeout(function() {
+						console.log('3 dmy focus');
 						p_dmy_elm.focus();
+						clearTimeout(dmy_focus);
 					}, 50);
 				} else {
-					console.log('fcssts not null');
+					console.log('7 fcssts not null');
 					p_inspec_elm[p_cnt].__fcssts__ = null;
 				}
 			});
