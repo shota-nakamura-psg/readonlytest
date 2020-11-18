@@ -24,7 +24,7 @@
 		<input id="dmy_input" style="width:0px; height:0px; opacity:0;" readonly="">
 		<script>
 		<!--
-		console.log('proc sta');
+		console.log('proc start');
 		var p_micro_meter = [];
 		p_micro_meter.push('micro_meter_1');
 		p_micro_meter.push('micro_meter_2');
@@ -62,8 +62,6 @@
 			// フォーカスが外れた時の処理(フォーカスを当て直す)
 			p_inspec_elm[p_cnt].addEventListener('blur', function() {
 				console.log('elm Listener blur');
-				console.log('__fcssts__');
-				console.log(p_inspec_elm[p_cnt].__fcssts__);
 				if (p_inspec_elm[p_cnt].__fcssts__  == null) {
 					console.log('set readonly');
 					p_inspec_elm[p_cnt].setAttribute('readonly', '');
@@ -88,7 +86,7 @@
 							// }
 							p_inspec_elm[p_cnt].addEventListener('touchstart', function (e) {
 								console.log('inspec touchstart');
-								p_dmy_elm.focus();
+								// p_dmy_elm.focus();
 								// stopAction(e);
 							});
 						}
