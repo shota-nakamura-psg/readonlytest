@@ -67,8 +67,6 @@
 				if (p_inspec_elm[p_cnt].__fcssts__  == null) {
 					console.log('set readonly');
 					p_inspec_elm[p_cnt].setAttribute('readonly', '');
-					console.log('rem touchstart');
-					p_inspec_elm[p_cnt].removeEventListener('touchstart', stopAction, false );
 					console.log('--------------------------------*');
 				} else {
 					p_dmy_elm.addEventListener('focus', function() {
@@ -85,12 +83,18 @@
 									p_inspec_elm[p_cnt].removeAttribute('readonly');
 								}, 50);
 							}, 50);
-							function stopAction(e) {
-								e.preventDefault();
-							}
+							// function stopAction(e) {
+							// 	e.preventDefault();
+							// }
 							p_inspec_elm[p_cnt].addEventListener('touchstart', function (e) {
 								console.log('inspec touchstart');
-								stopAction(e);
+								p_inspec_elm[p_cnt].focus();
+								// stopAction(e);
+							});
+							p_inspec_elm[p_cnt].addEventListener('click', function (e) {
+								console.log('inspec touchstart');
+								p_inspec_elm[p_cnt].focus();
+								// stopAction(e);
 							});
 						}
 					});
