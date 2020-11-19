@@ -24,7 +24,7 @@
 		<input id="dmy_input" style="width:0px; height:0px; opacity:0;" readonly="">
 		<script>
 		<!--
-		console.log('proc sta');
+		console.log('proc start');
 		var p_micro_meter = [];
 		p_micro_meter.push('micro_meter_1');
 		p_micro_meter.push('micro_meter_2');
@@ -37,6 +37,7 @@
 		var p_dmy_elm = document.getElementById('dmy_input');
 		var p_cnt = 0;
 		var log_cnt = 0;
+		var p_focus_flag = 0;
 
 		// name属性が付与されたものだけ取得して格納
 		for (var i = 0; i < p_document.length; i++) {
@@ -69,7 +70,7 @@
 					console.log(' --------------------------------*');
 					throw new Error('終了します');
 				} else {
-					p_dmy_elm.addEventListener('focus', function() {
+					// p_dmy_elm.addEventListener('focus', function() {
 						console.log('5 dmy Listener focus');
 						// 全ての検査が終了したら処理しない
 						if (p_cnt != p_inspec_elm.length) {
@@ -92,44 +93,12 @@
 							// 	stopAction(e);
 							// });
 						}
-					});
+					// });
 				}
 
 			});
 
 			// フォーカスが当たった時の処理(ダミーにフォーカスを移す)
-			p_inspec_elm[p_cnt].addEventListener('touchstart', function() {
-				console.log('1 inspec focus');
-				if (p_inspec_elm[p_cnt].__fcssts__ == null) {
-					console.log('2 fcssts null');
-					p_inspec_elm[p_cnt].__fcssts__ = true;
-					var dmy_focus = setTimeout(function() {
-						console.log('3 dmy focus');
-						p_dmy_elm.focus();
-						clearTimeout(dmy_focus);
-					}, 50);
-				} else {
-					console.log('7 fcssts not null');
-					p_inspec_elm[p_cnt].__fcssts__ = null;
-				}
-			});
-			// クリック用
-			p_inspec_elm[p_cnt].addEventListener('click', function() {
-				console.log('1 inspec focus');
-				if (p_inspec_elm[p_cnt].__fcssts__ == null) {
-					console.log('2 fcssts null');
-					p_inspec_elm[p_cnt].__fcssts__ = true;
-					var dmy_focus = setTimeout(function() {
-						console.log('3 dmy focus');
-						p_dmy_elm.focus();
-						clearTimeout(dmy_focus);
-					}, 50);
-				} else {
-					console.log('7 fcssts not null');
-					p_inspec_elm[p_cnt].__fcssts__ = null;
-				}
-			});
-
 			p_inspec_elm[p_cnt].addEventListener('focus', function() {
 				console.log('1 inspec focus');
 				if (p_inspec_elm[p_cnt].__fcssts__ == null) {
