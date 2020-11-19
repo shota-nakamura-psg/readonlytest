@@ -24,7 +24,7 @@
 		<input id="dmy_input" style="width:0px; height:0px; opacity:0;" readonly="">
 		<script>
 		<!--
-		console.log('proc sta');
+		console.log('proc start');
 		var p_micro_meter = [];
 		p_micro_meter.push('micro_meter_1');
 		p_micro_meter.push('micro_meter_2');
@@ -42,10 +42,12 @@
 		// name属性が付与されたものだけ取得して格納
 		for (var i = 0; i < p_document.length; i++) {
 			if (p_document[i].type == 'text') {
-				p_document[i].value = "";
+				p_document[i].value = '';
 				for (var j = 0; j < p_micro_meter.length; j++) {
 					if (p_document[i].name === p_micro_meter[j]) {
 						p_inspec_elm.push(p_document[i]);
+					}else if (p_document[i].name === 'other_2') {
+						p_other_elm.push(p_document[i]);
 					}
 				}
 			}
@@ -59,6 +61,14 @@
 					console.log(' Enter');
 					afterInputInspec(p_inspec_elm[p_cnt].value);
 				}
+			});
+
+			p_other_elm[p_cnt].addEventListener('blur', function() {
+				console.log('other Listener blur');
+				p_dmy_elm.focus();
+				setTimeout(function() {
+					p_inspec_elm[p_cnt].focus();
+				}, 50);
 			});
 
 			// フォーカスが外れた時の処理(フォーカスを当て直す)
