@@ -6,9 +6,6 @@
 </head>
 <body>
 	<form name="vapc0000">
-		<input type="text" id="phone-number" onfocus="blur();" />
-		<br>
-		<br>
 		<input type="text" name="other_1">
 		<br>
 		<input type="text" name="other_2">
@@ -27,7 +24,7 @@
 		<input id="dmy_input" style="width:0px; height:0px; opacity:0;" readonly="">
 		<script>
 		<!--
-		console.log('proc start');
+		console.log('proc sta');
 		var p_micro_meter = [];
 		p_micro_meter.push('micro_meter_1');
 		p_micro_meter.push('micro_meter_2');
@@ -89,11 +86,11 @@
 							// function stopAction(e) {
 							// 	e.preventDefault();
 							// }
-							p_inspec_elm[p_cnt].addEventListener('touchstart', function (e) {
-								console.log(' inspec touchstart');
-								// p_dmy_elm.focus();
-								// stopAction(e);
-							});
+							// p_inspec_elm[p_cnt].addEventListener('touchstart', function (e) {
+							// 	console.log(' inspec touchstart');
+							// 	p_dmy_elm.focus();
+							// 	stopAction(e);
+							// });
 						}
 					});
 				}
@@ -101,6 +98,38 @@
 			});
 
 			// フォーカスが当たった時の処理(ダミーにフォーカスを移す)
+			p_inspec_elm[p_cnt].addEventListener('touchstart', function() {
+				console.log('1 inspec focus');
+				if (p_inspec_elm[p_cnt].__fcssts__ == null) {
+					console.log('2 fcssts null');
+					p_inspec_elm[p_cnt].__fcssts__ = true;
+					var dmy_focus = setTimeout(function() {
+						console.log('3 dmy focus');
+						p_dmy_elm.focus();
+						clearTimeout(dmy_focus);
+					}, 50);
+				} else {
+					console.log('7 fcssts not null');
+					p_inspec_elm[p_cnt].__fcssts__ = null;
+				}
+			});
+			// クリック用
+			p_inspec_elm[p_cnt].addEventListener('click', function() {
+				console.log('1 inspec focus');
+				if (p_inspec_elm[p_cnt].__fcssts__ == null) {
+					console.log('2 fcssts null');
+					p_inspec_elm[p_cnt].__fcssts__ = true;
+					var dmy_focus = setTimeout(function() {
+						console.log('3 dmy focus');
+						p_dmy_elm.focus();
+						clearTimeout(dmy_focus);
+					}, 50);
+				} else {
+					console.log('7 fcssts not null');
+					p_inspec_elm[p_cnt].__fcssts__ = null;
+				}
+			});
+
 			p_inspec_elm[p_cnt].addEventListener('focus', function() {
 				console.log('1 inspec focus');
 				if (p_inspec_elm[p_cnt].__fcssts__ == null) {
