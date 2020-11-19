@@ -1,157 +1,77 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="jp" dir="ltr">
 <head>
 	<meta charset="utf-8">
 	<title></title>
 </head>
 <body>
-	<form name="vapc0000">
-		<input type="text" id="phone-number" onfocus="blur();" />
-		<br>
-		<br>
-		<input type="text" name="other_1">
-		<br>
-		<input type="text" name="other_2">
-		<br>
-		<br>
-		<input type="text" name="micro_meter_1" readonly="">
-		<br>
-		<input type="text" name="micro_meter_2" readonly="">
-		<br>
-		<input type="text" name="micro_meter_3" readonly="">
-		<br>
-		<input type="text" name="micro_meter_4" readonly="">
-		<br>
-		<input type="text" name="micro_meter_5" readonly="">
-		<br>
-		<input id="dmy_input" style="width:0px; height:0px; opacity:0;" readonly="">
-		<script>
-		<!--
-		console.log('proc sta');
-		var p_micro_meter = [];
-		p_micro_meter.push('micro_meter_1');
-		p_micro_meter.push('micro_meter_2');
-		p_micro_meter.push('micro_meter_3');
-		p_micro_meter.push('micro_meter_4');
-		p_micro_meter.push('micro_meter_5');
-		var p_document = document.forms.vapc0000;
-		var p_inspec_elm = [];
-		var p_other_elm = [];
-		var p_dmy_elm = document.getElementById('dmy_input');
-		var p_cnt = 0;
-		var log_cnt = 0;
+	Click on the field and type (it should work even though the field isn't really focused):
+	<p />
 
-		// name属性が付与されたものだけ取得して格納
-		for (var i = 0; i < p_document.length; i++) {
-			if (p_document[i].type == 'text') {
-				p_document[i].value = "";
-				for (var j = 0; j < p_micro_meter.length; j++) {
-					if (p_document[i].name === p_micro_meter[j]) {
-						p_inspec_elm.push(p_document[i]);
-					}
-				}
-			}
+	<!-- must be a select box with no children to suppress the keyboard -->
+	input: <select id="hiddenField" />
+	<span id="fakecursor" />
+
+	<input type="text" readonly="readonly" id="visibleField" />
+	<div id="cursorMeasuringDiv" />
+	<style media="screen">
+		#hiddenField {
+			height:17px;
+			width:1px;
+			position:absolute;
+			margin-left:3px;
+			margin-top:2px;
+			border:none;
+			border-width:0px 0px 0px 1px;
 		}
 
-		// キーボード禁止処理
-		function procFocus() {
-			p_inspec_elm[p_cnt].addEventListener('keydown', function(x_event) {
-				console.log(' keydown');
-				if (x_event.code == 'Enter') {
-					console.log(' Enter');
-					afterInputInspec(p_inspec_elm[p_cnt].value);
-				}
-			});
-
-			// フォーカスが外れた時の処理(フォーカスを当て直す)
-			p_inspec_elm[p_cnt].addEventListener('blur', function() {
-				console.log('4 elm Listener blur');
-				if (p_inspec_elm[p_cnt].__fcssts__  == null) {
-					console.log('9 set readonly');
-					p_inspec_elm[p_cnt].setAttribute('readonly', '');
-					console.log(' --------------------------------*');
-					throw new Error('終了します');
-				} else {
-					p_dmy_elm.addEventListener('focus', function() {
-						console.log('5 dmy Listener focus');
-						// 全ての検査が終了したら処理しない
-						if (p_cnt != p_inspec_elm.length) {
-							// setTimeout = setTimeout(function() {
-								console.log('6 elm focus');
-								p_inspec_elm[p_cnt].focus();
-								p_inspec_elm[p_cnt].setAttribute('readonly', '');
-								var rem_readonly = setTimeout(function() {
-									console.log('8 rem readonly');
-									p_inspec_elm[p_cnt].removeAttribute('readonly');
-									clearTimeout(rem_readonly);
-								}, 50);
-							// }, 50);
-							// function stopAction(e) {
-							// 	e.preventDefault();
-							// }
-							p_inspec_elm[p_cnt].addEventListener('touchstart', function (e) {
-								console.log(' inspec touchstart');
-								// p_dmy_elm.focus();
-								// stopAction(e);
-							});
-						}
-					});
-				}
-
-			});
-
-			// フォーカスが当たった時の処理(ダミーにフォーカスを移す)
-			p_inspec_elm[p_cnt].addEventListener('focus', function() {
-				console.log('1 inspec focus');
-				if (p_inspec_elm[p_cnt].__fcssts__ == null) {
-					console.log('2 fcssts null');
-					p_inspec_elm[p_cnt].__fcssts__ = true;
-					var dmy_focus = setTimeout(function() {
-						console.log('3 dmy focus');
-						p_dmy_elm.focus();
-						clearTimeout(dmy_focus);
-					}, 50);
-				} else {
-					console.log('7 fcssts not null');
-					p_inspec_elm[p_cnt].__fcssts__ = null;
-				}
-			});
-
-			function afterInputInspec(x_inspec) {
-				// 空の場合処理しない
-				if (x_inspec == null || x_inspec == '') {
-					return;
-				}
-
-				// 空白や改行を削除
-				if (x_inspec != null) {
-					p_inspec_elm[p_cnt].value = x_inspec.trim();
-					// 検査が完了した項目を読み取り専用にして背景を変更
-					p_inspec_elm[p_cnt].setAttribute('readonly', '');
-					p_inspec_elm[p_cnt].style.backgroundColor = '#cccccc';
-					p_cnt++;
-					// 次の検査項目へフォーカス
-					if (p_cnt != p_inspec_elm.length) {
-						p_dmy_elm.focus();
-						console.log('start procFocus2');
-						procFocus();
-					}
-				}
-			};
+		#cursorMeasuringDiv {
+			position:absolute;
+			visibility:hidden;
+			margin:0px;
+			padding:0px;
 		}
-		console.log('start procFocus1');
-		try {
-			procFocus();
-		} catch (e) {
-			console.log(e.message);
+
+		#hiddenField:focus {
+			border:1px solid gray;
+			border-width:0px 0px 0px 1px;
+			outline:none;
+			animation-name: cursor;
+			animation-duration: 1s;
+			animation-iteration-count: infinite;
 		}
-		-->
-</script>
-<style>
-	input {
-		height: 50px;
-	}
-</style>
-</form>
-</body>
-</html>
+
+		@keyframes cursor {
+			from {opacity:0;}
+			to {opacity:1;}
+		}
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script type="text/javascript">
+			<!--
+				// whenever the visible field gets focused
+				$("#visibleField").bind("focus", function(e) {
+					// silently shift the focus to the hidden select box
+					$("#hiddenField").focus();
+					$("#cursorMeasuringDiv").css("font", $("#visibleField").css("font"));
+				});
+
+				// whenever the user types on his keyboard in the select box
+				// which is natively supported for jumping to an <option>
+					$("#hiddenField").bind("keypress",function(e) {
+						// get the current value of the readonly field
+						var currentValue = $("#visibleField").val();
+
+						// and append the key the user pressed into that field
+						$("#visibleField").val(currentValue + e.key);
+						$("#cursorMeasuringDiv").text(currentValue + e.key);
+
+						// measure the width of the cursor offset
+						var offset = 3;
+						var textWidth = $("#cursorMeasuringDiv").width();
+						$("#hiddenField").css("marginLeft",Math.min(offset+textWidth,$("#visibleField").width()));
+					-->
+				});
+			</script>
+		</style>
+	</body>
+	</html>
