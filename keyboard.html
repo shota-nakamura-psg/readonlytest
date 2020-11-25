@@ -24,7 +24,7 @@
 		<input id="dmy_input" style="width:0px; height:0px; opacity:0;" readonly="">
 		<script>
 		<!--
-		console.log('proc start');
+		console.log('proc sta');
 		var p_micro_meter = [];
 		p_micro_meter.push('micro_meter_1');
 		p_micro_meter.push('micro_meter_2');
@@ -85,16 +85,11 @@
 									p_inspec_elm[p_cnt].removeAttribute('readonly');
 								}, 50);
 							}, 50);
-							// function stopAction(e) {
-							// 	e.preventDefault();
-							// }
 							p_inspec_elm[p_cnt].addEventListener('touchstart', function (e) {
 								console.log(' inspec touchstart');
 								p_dmy_elm.focus();
-								// stopAction(e);
 							});
 						}
-					// });
 				}
 
 			});
@@ -108,7 +103,7 @@
 					setTimeout(function() {
 						console.log('3 dmy focus');
 						p_dmy_elm.focus();
-					}, 1000);
+					}, 500);
 				} else {
 					console.log('7 fcssts not null');
 					p_inspec_elm[p_cnt].__fcssts__ = null;
@@ -130,12 +125,11 @@
 					p_cnt++;
 					// 次の検査項目へフォーカス
 					if (p_cnt != p_inspec_elm.length) {
-						// p_dmy_elm.focus();
 						setTimeout(function() {
 							p_inspec_elm[p_cnt].focus();
 						}, 50);
 						console.log('start procFocus2');
-						// procFocus();
+						procFocus();
 					}
 				}
 			};
