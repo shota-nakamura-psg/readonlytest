@@ -24,7 +24,7 @@
 		<input id="dmy_input" style="width:0px; height:0px; opacity:0;" readonly="">
 		<script>
 		<!--
-		console.log('proc start');
+		console.log('proc sta');
 		var p_micro_meter = [];
 		p_micro_meter.push('micro_meter_1');
 		p_micro_meter.push('micro_meter_2');
@@ -62,14 +62,6 @@
 					afterInputInspec(p_inspec_elm[p_cnt].value);
 				}
 			});
-
-			// p_other_elm[p_cnt].addEventListener('blur', function() {
-			// 	console.log('other Listener blur');
-			// 	p_dmy_elm.focus();
-			// 	// setTimeout(function() {
-			// 	// 	p_inspec_elm[p_cnt].focus();
-			// 	// }, 50);
-			// });
 
 			// フォーカスが外れた時の処理(フォーカスを当て直す)
 			p_inspec_elm[p_cnt].addEventListener('blur', function() {
@@ -113,10 +105,11 @@
 				if (p_inspec_elm[p_cnt].__fcssts__ == null) {
 					console.log('2 fcssts null');
 					p_inspec_elm[p_cnt].__fcssts__ = true;
-					var dmy_focus = setTimeout(function() {
+					// var dmy_focus = setTimeout(function() {
+					setTimeout(function() {
 						console.log('3 dmy focus');
 						p_dmy_elm.focus();
-						clearTimeout(dmy_focus);
+						// clearTimeout(dmy_focus);
 					}, 50);
 				} else {
 					console.log('7 fcssts not null');
@@ -139,7 +132,8 @@
 					p_cnt++;
 					// 次の検査項目へフォーカス
 					if (p_cnt != p_inspec_elm.length) {
-						p_dmy_elm.focus();
+						// p_dmy_elm.focus();
+						p_inspec_elm[p_cnt].focus();
 						console.log('start procFocus2');
 						procFocus();
 					}
