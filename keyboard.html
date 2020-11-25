@@ -24,7 +24,7 @@
 		<input id="dmy_input" style="width:0px; height:0px; opacity:0;" readonly="">
 		<script>
 		<!--
-		console.log('proc sta');
+		console.log('proc start');
 		var p_micro_meter = [];
 		p_micro_meter.push('micro_meter_1');
 		p_micro_meter.push('micro_meter_2');
@@ -84,7 +84,7 @@
 									console.log('8 rem readonly');
 									p_inspec_elm[p_cnt].removeAttribute('readonly');
 								}, 50);
-							}, 50);
+							}, 250);
 							p_inspec_elm[p_cnt].addEventListener('touchstart', function (e) {
 								console.log(' inspec touchstart');
 								p_dmy_elm.focus();
@@ -103,7 +103,7 @@
 					setTimeout(function() {
 						console.log('3 dmy focus');
 						p_dmy_elm.focus();
-					}, 500);
+					}, 250);
 				} else {
 					console.log('7 fcssts not null');
 					p_inspec_elm[p_cnt].__fcssts__ = null;
@@ -127,7 +127,7 @@
 					if (p_cnt != p_inspec_elm.length) {
 						setTimeout(function() {
 							p_inspec_elm[p_cnt].focus();
-						}, 50);
+						}, 100);
 						console.log('start procFocus2');
 						procFocus();
 					}
