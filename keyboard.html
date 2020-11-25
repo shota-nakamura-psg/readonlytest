@@ -24,7 +24,7 @@
 		<input id="dmy_input" style="width:0px; height:0px; opacity:0;" readonly="">
 		<script>
 		<!--
-		console.log('proc start');
+		console.log('proc sta');
 		var p_micro_meter = [];
 		p_micro_meter.push('micro_meter_1');
 		p_micro_meter.push('micro_meter_2');
@@ -33,7 +33,6 @@
 		p_micro_meter.push('micro_meter_5');
 		var p_document = document.forms.vapc0000;
 		var p_inspec_elm = [];
-		var p_other_elm = [];
 		var p_dmy_elm = document.getElementById('dmy_input');
 		var p_cnt = 0;
 		var log_cnt = 0;
@@ -46,8 +45,6 @@
 				for (var j = 0; j < p_micro_meter.length; j++) {
 					if (p_document[i].name === p_micro_meter[j]) {
 						p_inspec_elm.push(p_document[i]);
-					}else if (p_document[i].name === 'other_2') {
-						p_other_elm.push(p_document[i]);
 					}
 				}
 			}
@@ -84,7 +81,7 @@
 									console.log('8 rem readonly');
 									p_inspec_elm[p_cnt].removeAttribute('readonly');
 								}, 50);
-							}, 250);
+							}, 100);
 							p_inspec_elm[p_cnt].addEventListener('touchstart', function (e) {
 								console.log(' inspec touchstart');
 								p_dmy_elm.focus();
@@ -103,7 +100,7 @@
 					setTimeout(function() {
 						console.log('3 dmy focus');
 						p_dmy_elm.focus();
-					}, 250);
+					}, 400);
 				} else {
 					console.log('7 fcssts not null');
 					p_inspec_elm[p_cnt].__fcssts__ = null;
